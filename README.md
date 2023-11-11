@@ -1,2 +1,4 @@
 # express-typescript-starter-kit
-intergrate 
+integrate typescript with express server
+
+
