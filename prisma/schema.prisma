@@ -1,0 +1,32 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int    @id @default(autoincrement())
+  username     String
+  name         String
+  profileImage String
+  password     String
+
+  Owns    Group? @relation(fields: [groupId], references: [id])
+  // Relation to the group the user belongs to
+  group   Group? @relation(name: "GroupMembers", fields: [groupId], references: [id])
+  groupId Int?
+}
+
+model Group {
+  id      Int    @id @default(autoincrement())
+  name    String
+  // membership 
+  members User[] @relation(name: "GroupMembers")
+  User    User[]
+}
